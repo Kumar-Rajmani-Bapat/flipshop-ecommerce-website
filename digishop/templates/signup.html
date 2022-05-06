@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}
+Sign Up
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="col-5 mx-auto ui segment p-4">
+
+        <h1 class="display-7">Create Account</h1>
+        <div class="ui warning message" id="message" {% if not error %} hidden{% endif %}>
+            {{error}}
+        </div>
+
+
+        <form class="ui form" onsubmit="return validate(event)" action="/signup" method="POST">
+            {% csrf_token %}
+
+            <div class="field">
+                <label>Name</label>
+                <input type="text" name="name" required placeholder="fullname">
+            </div>
+            <div class="field">
+                <label>Phone</label>
+                <input type="number" name="phone" placeholder="123456XXXX">
+            </div>
+            <div class="field">
+                <label>Email</label>
+                <input type="email" name="email" required placeholder="example@gmail.com">
+            </div>
+            <div class="field">
+                <label>Password</label>
+                <input type="password" name="password" required placeholder="*******">
+            </div>
+            <div class="field">
+                <label>Re-Enter Password</label>
+                <input type="password" name="repassword" required placeholder="*******">
+            </div>
+            <div class="col-md-6 pull-right">
+
+                <div class="field">
+                    <div class="ui checkbox">
+                        <input type="checkbox" tabindex="0">
+                        <label>I agree to the Terms and Conditions</label>
+                    </div>
+                </div>
+                <button class="button ui primary btn-block" type="submit">Submit</button>
+
+        </form>
+    </div>
+
+</div>
+
+{% load static %}
+<script src="{% static 'shop/js/signup.js' %}"></script>
+
+{% endblock %}

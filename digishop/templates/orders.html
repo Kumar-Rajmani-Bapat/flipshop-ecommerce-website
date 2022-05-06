@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{%block title%}My Orders{% endblock %}
+
+{% block content %}
+
+
+<div class="container mt-4">
+    <h4 class="display-4">My Orders</h4>
+    <hr/>
+
+    <div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Sno.</th>
+                        <th>Product</th>
+                        <th>Download</th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{order.product.name}}</td>
+                    <td><a target="_blank" href="/download/paidproduct/{{order.product.id}}" class="ui button teal">Download</a></td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+
+
+{% endblock %}

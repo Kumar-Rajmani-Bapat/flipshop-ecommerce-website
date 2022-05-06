@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{product.name}}
+{% endblock %}
+{% load custom_filters %}
+{% block content %}
+
+<style>
+
+</style>
+
+<div class="container mt-4 p-4">
+    <div class="row">
+        <div class="col-5">
+            <img id="mainImage" src="{{product.thumbnail.url}}" class="img-fluid rounded border"/>
+            <hr/>
+
+            <div class="row">
+                {% for image in images %}
+                   <div class="col">
+                       <img onclick= "changeImage(event)" class="img-thumbnail" src="{{image.image.url}}"/>
+                   </div>
+                {% endfor %}
+            </div>
+
+       </div>
+       <div class="col-7">
+           <h1 class='display-5'>{{product.name}} </h1>
+           <hr/>
+           <p class="display-8 badge badge-warning">Save {{product.discount}} %</p>
+           <h4>Price :  <del>{{ product.price|rupee }}</del> &nbsp; {{ product|sale_price|rupee }} </h4>
+           <br>
+           {% if can_download == True %}
+                <a target="_blank" href="/download/paidproduct/{{order.product.id}}" class="ui button teal">Download</a>
+           {% else %}
+                    {% if product|sale_price == 0 %}
+           <a target="_blank" href="/download-free/{{product.id}}" class ="btn btn-info ">Download Free</a>
+           {% else %}
+           <a href="/create-payment/{{product.id}}" class ="btn btn-info ">Download Now</a>
+           {% endif %}
+           {% endif %}
+           <hr/>
+           <h4 class='display-8'>File Size: {{ product.fileSize }} </h4>
+           <hr/>
+           <p>
+               {{ product.description }}
+           </p>
+       </div>
+    </div>
+    <hr/>
+</div>
+
+{% load static %}
+
+<script src="{% static 'shop/js/product_details.js' %}"> </script>
+
+
+
+{% endblock %}

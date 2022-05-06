@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+
+{% block title %}
+FlipShop
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <br>
+    <div class="alert alert-info">
+        <strong>Welcome !</strong> to <strong>FlipShop</strong>
+
+    </div>
+
+    <div class="row mx-auto">
+
+    {% for products in products %}
+        <div class ="col-4 p-3">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="{{products.thumbnail.url}}" alt="Card image cap">
+                <div class="card-body">
+                 <h4>{{ products.name}}</h4>
+                    <p class="text-danger">Save {{ products.discount}}%</p>
+
+                    <p>Price: <del>{{ products.price | rupee }}</del> {{products|sale_price|rupee}}</p>
+
+                </div>
+                <div class="card-footer p-0">
+                    <a href="/product/{{products.id}}" class="btn btn-light btn-block">Show More</a>
+
+
+                </div>
+    </div>
+    </div>
+
+    {% endfor %}
+
+</div>
+
+
+{% endblock %}
